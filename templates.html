@@ -1,0 +1,33 @@
+<template name="wordpress">
+    {{#if selectedPost}}
+      {{#each entries}}
+        {{>wordpress_single}}
+      {{/each}}
+    {{else}}
+    <ul> 
+      {{#each entries}}
+        <li class="postMain"><h4>{{{title}}}</h4><p>{{{excerpt}}}</p><a href="#">Select</a></li>
+      {{/each}}
+    </ul>
+    {{/if}}
+</template>
+
+<template name="wordpress_single">
+  <ul class="small-block-grid-1">
+    <li>
+        <a class="goBack" href="#">Back</a>
+         <h4>{{{title}}}</h4>  
+    </li>
+    <li>
+      {{#each categories}}
+      <div>{{{this.title}}}</div>
+      {{/each}}
+    </li>
+    <li>
+        <div class="wordpress_single_content">
+        {{{content}}}
+            <strong><a href="{{url}}">See on post</a></strong>
+        </div>
+      </li>
+    </ul>
+</template>
