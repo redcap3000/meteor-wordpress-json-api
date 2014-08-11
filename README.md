@@ -9,8 +9,6 @@ Comes with very bare bones templates and sends back all the data/fields to all p
 
 Add
 
-  
-
 ```javascript
 wordpress = new Meteor.Collection("wordpress");
 ```
@@ -18,18 +16,29 @@ To a shared file. And then
 ```javascript
 Meteor.subscribe("wordpress","http://yourwpsite.com/");
 ```
+To a clientside file. Finally;
+```
+{{>wordpress}}
+```
+In a template (html) file.
 ###Publications
-
-####Meteor.publish("wordpress",function(site,directive))
-
+```javascript
+Meteor.publish("wordpress",function(site,directive))
+```
 The main publication where site is the wordpress site (with the plugin installed) including slash. If no directive is provided it will default to the latest posts response (?json). Your plugin installation may support the 'pretty urls' or not. Otherwise provide it with the appropriate query string for the data you'd like to retrieve. 
 
-####Meteor.publish("wpPost",function(id){})
+```javascript
+Meteor.publish("wpPost",function(id){})
+```
 
 This may not play nice with use of the "main" wordpress publication. So its recommended using one or the other.
 ###Methods
-**callWordpress(site,directive)**
-This is like the publication except it returns the raw response (as an object).
+
+```javascript
+Meteor.call("callWordpress","http://mysite.com/");
+Meteor.call("callWordpress","http://mysite.com/","json=get_post&post_id=47");
+```
+This is like the publication except it returns the raw response (as an object). Check [this document](http://wordpress.org/plugins/json-api/other_notes/) for more on how to query the api. For now it **appends the question mark(?).** 
 ###Templates
 
 Included are templates **{{>wordpress}}** and **{{>wordpress_single}}**, and some javascript to 'select' a single post using a selectedPost session variable. 
