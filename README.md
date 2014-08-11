@@ -15,7 +15,9 @@ The main publication where site is the wordpress site (with the plugin installed
 ####Meteor.publish("wpPost",function(id){})
 
 This may not play nice with use of the "main" wordpress publication. So its recommended using one or the other.
-
+###Methods
+**callWordpress(site,directive)**
+This is like the publication except it returns the raw response (as an object).
 ###Templates
 
 Included are templates **{{>wordpress}}** and **{{>wordpress_single}}**, and some javascript to 'select' a single post using a selectedPost session variable. 
