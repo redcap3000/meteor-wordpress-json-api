@@ -5,6 +5,15 @@ meteor-wordpress-json-api
 Interacts with the [Wordpress JSON API plugin](https://wordpress.org/plugins/json-api/) to retrieve [Wordpress](http://wordpress.org) data.
 
 Comes with very bare bones templates and sends back all the data/fields to all publications. Includes a basic template with single post view functionality (as well as a way to go back.)
+###Quickstart
+
+Add
+
+wordpress = new Meteor.Collection("wordpress");
+
+To a shared file. And then
+
+Meteor.subscribe("wordpress","http://yourwpsite.com/");
 
 ###Publications
 
