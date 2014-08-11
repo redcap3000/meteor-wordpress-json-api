@@ -9,12 +9,15 @@ Comes with very bare bones templates and sends back all the data/fields to all p
 
 Add
 
-  wordpress = new Meteor.Collection("wordpress");
+  
 
+```javascript
+wordpress = new Meteor.Collection("wordpress");
+```
 To a shared file. And then
-
-  Meteor.subscribe("wordpress","http://yourwpsite.com/");
-
+```javascript
+Meteor.subscribe("wordpress","http://yourwpsite.com/");
+```
 ###Publications
 
 ####Meteor.publish("wordpress",function(site,directive))
