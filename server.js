@@ -14,33 +14,31 @@ Meteor.methods ({'callWordpress' :
 });
 
 Meteor.publish("wordpress",function(site,directive){
-    
-        if(typeof site != "undefined" && typeof site == "string" && site != ''){
-          if(typeof directive == "undefined" || typeof directive != "string" || directive == ''){
-            directive = "json=1";
-          }
-          var q = HTTP.get(site + '?' + directive,{headers: {"Accept":"application/json"} });
-          if(q.statusCode==200){
-            var respJson = JSON.parse(q.content);
-            respJson.posts.filter(function(arr){
-            // avoid entering same id?
-                arr._id = arr.id + '';
-                // delete old key? aghhh why bother!
-                if(wordpress.findOne({_id : arr._id})){
-                  ;
-                }else{
-                  wordpress.insert(arr);
-                }
-            });
-            return wordpress.find();
-          }else{
-            this.ready();
-            return {error: q.statusCode};
-          }
-        }
+  if(typeof site != "undefined" && typeof site == "string" && site != ''){
+    if(typeof directive == "undefined" || typeof directive != "string" || directive == ''){
+      directive = "json=get_recent_posts";
+    }
+    var q = HTTP.get(site + '?' + directive,{headers: {"Accept":"application/json"} });
+    if(q.statusCode==200){
+      var respJson = JSON.parse(q.content);
+      if(respJson && typeof respJson.posts != "undefined")
+      {
+        respJson.posts.filter(function(arr){
+        // avoid entering same id?
+        arr._id = arr.id + '';
+        // delete old key? aghhh why bother!
+        wordpress.upsert(arr);
+      });
+      return wordpress.find();
+      }else{
         this.ready();
-        //return wordpress.find({},{fields: {categories:1,date : 1,excerpt : 1,tags:1,thumbnail:1,title:1,url:1} });
-     
+      } 
+    }else{
+      this.ready();
+      return {error: q.statusCode};
+    }
+  }
+  this.ready();
 });
 
 Meteor.publish("wpPost",function(id){
