@@ -18,7 +18,9 @@ Meteor.subscribe("wordpress","http://yourwpsite.com/");
 ```
 To a clientside file. Finally;
 ```
-{{>wordpress}}
+{{#each wpPosts}}
+  {{{content}}}
+{{/each}}
 ```
 In a template (html) file.
 ###Publications
@@ -39,16 +41,13 @@ Meteor.call("callWordpress","http://mysite.com/");
 Meteor.call("callWordpress","http://mysite.com/","json=get_post&post_id=47");
 ```
 This is like the publication except it returns the raw response (as an object). Check [this document](http://wordpress.org/plugins/json-api/other_notes/) for more on how to query the api. For now it **appends the question mark(?).** 
-###Templates
-
-Included are templates **{{>wordpress}}** and **{{>wordpress_single}}**, and some javascript to 'select' a single post using a selectedPost session variable. 
 
 ####Handlebar helper
 
-**selectedPost** - use this helper to return the id of the 'selected' post, optionally pass it an id to return a true/false value (handy in each loops) **{{selectedPost _id}}**
+**wpPost** - use this helper to fetch the data from the collection wordpress, if provided with an ID should only return a single post of that ID. **{{wpPost _id}}**
 
 
 ###Extra notes
 The wordpress ID is used as the mongo _id.
-For now posts with **matching ID's aren't reinserted**.
+For now posts with **matching ID's aren't upserted**.
 Subscriptions return all fields to the client.
