@@ -3,6 +3,6 @@
       "description": "Interacts with the Wordpress JSON API plugin to retrieve wordpress data.",
       "homepage": "https://github.com/redcap3000/meteor-wordpress-json-api",
       "author": "Ronaldo Barbachano <redcap3000@gmail.com>",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "git": "https://github.com/redcap3000/meteor-wordpress-json-api.git"
 }
