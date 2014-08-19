@@ -25,9 +25,12 @@ Meteor.publish("wordpress",function(site,directive){
       {
         respJson.posts.filter(function(arr){
         // avoid entering same id?
-        arr._id = arr.id + '';
-        // delete old key? aghhh why bother!
-        wordpress.upsert(arr._id +'',arr);
+		arr._id = arr.id + '';
+ 		if(wordpress.findOne({_id : arr.id + ""})){
+			wordpress.upsert(arr._id,arr)
+		}else{
+			wordpress.insert(arr);
+		}
       });
       return wordpress.find();
       }else{
