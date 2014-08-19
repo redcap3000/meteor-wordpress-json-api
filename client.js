@@ -5,7 +5,4 @@ Handlebars.registerHelper("wpPosts",function(id){
     return wordpress.find({_id : id});
 });
 
-Template.wordpress.entries = function(){
-    return wordpress.find(wpSelectedId(true));
-};
 
