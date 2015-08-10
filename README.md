@@ -7,19 +7,48 @@ Interacts with the [Wordpress JSON API plugin](https://wordpress.org/plugins/jso
 Comes with very bare bones templates and sends back all the data/fields to all publications. Includes a basic template with single post view functionality (as well as a way to go back.)
 ###Quickstart
 
-Subscribe to data that is available via global mongo collection Wordpress
+**HTML Template File that references built in template 'wordpress_posts'**
 
-```javascript
-Meteor.subscribe("wordpress","http://yourwpsite.com/");
+***main.html***
+
+```
+<head>
+  <title>testWordpress</title>
+</head>
+
+<body>
+{{>wordpress_posts}}
+</body>
+```
+**Client JS file that sets session variable used to fetch wordpress posts**
+**main.js**
+
+```
+if (Meteor.isClient) {
+  Session.setDefault("wp-json-api-url","http://www.mywordpresssite.com/?json=get_posts&count=10");
+}
+```
+Changing the Session variable ```wp-json-api-url``` will update the subscription with the new data (if applicable.)
+
+###Bring your own template
+
+
+```
+Meteor.subscribe("wordpress","http://www.mywordpresssite.com/?json=get_posts&count=10");
 ```
 
-Use global template helper to fetch results of subscription
+
+1. Subscribe to data that is available via global mongo collection Wordpress
+
+2. Use built in global handlebar helper ```wpPosts``` to iterate through data in Wordpress mongo collection
+
 
 ```
 {{#each wpPosts}}
   {{{content}}}
 {{/each}}
 ```
+
 
 Make your own structures/queries  by directly accessing the Wordpress collection
 
@@ -28,40 +57,21 @@ Wordpress.find();
 
 ```
 
-Optionally, use Session variable "wp-json-api-url" to dynamically change subscription data,
-an example can be used with template 'wordpress_posts'
-
-
-**client.js**
-```javascript
-Meteor.startup(function(){
-	Session.setDefault('wp-json-api-url',"http://wordpressJsonUrl");
-});
-```
-
-***template.html***
-```
-<template name="myWordpressPosts">
-	{{>wp_posts}}
-</template>
-```
-Note this is mostly for testing purposes.. the outputted template is very basic.
-
 Publications
 ===============
-```javascript
+```
 Meteor.publish("wordpress",function(site,directive))
 ```
 The main publication where site is the wordpress site (with the plugin installed) including slash. If no directive is provided it will default to the latest posts response (?json). Your plugin installation may support the 'pretty urls' or not. Otherwise provide it with the appropriate query string for the data you'd like to retrieve. 
 
-```javascript
+```
 Meteor.publish("wpPost",function(id){})
 ```
 
 This may not play nice with use of the "main" wordpress publication. So its recommended using one or the other.
 ###Methods
 
-```javascript
+```
 Meteor.call("callWordpress","http://mysite.com/");
 Meteor.call("callWordpress","http://mysite.com/","json=get_post&post_id=47");
 ```
