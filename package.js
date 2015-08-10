@@ -2,7 +2,7 @@ Package.describe({
   name: 'redcap3000:wordpress-json-api',
   version: '0.0.1',
   // Brief, one-line summary of the package.
-  summary: "Interacts with the Wordpress JSON API plugin to retrieve wordpress data"
+  summary: "Interacts with the Wordpress JSON API plugin to retrieve wordpress data",
   // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/redcap3000/meteor-wordpress-json-api/',
   // By default, Meteor will default to using README.md for documentation.
