@@ -11,6 +11,7 @@ Package.describe({
 });
 
 Package.on_use(function(api){
+  api.versionsFrom('1.1.0.3');
   api.use(["underscore","templating"],"client");
   api.use("http","server");
   api.add_files("server.js","server");
