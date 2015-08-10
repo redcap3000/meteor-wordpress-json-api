@@ -26,13 +26,13 @@ Meteor.publish("wordpress",function(site,directive){
         respJson.posts.filter(function(arr){
         // avoid entering same id?
 		arr._id = arr.id + '';
- 		if(wordpress.findOne({_id : arr.id + ""})){
-			wordpress.upsert(arr._id,arr)
+ 		if(Wordpress.findOne({_id : arr.id + ""})){
+			Wordpress.upsert(arr._id,arr)
 		}else{
-			wordpress.insert(arr);
+			Wordpress.insert(arr);
 		}
       });
-      return wordpress.find();
+      return Wordpress.find();
       }else{
         this.ready();
       } 
@@ -45,5 +45,5 @@ Meteor.publish("wordpress",function(site,directive){
 });
 
 Meteor.publish("wpPost",function(id){
-        return wordpress.find({_id : id + ""});
+        return Wordpress.find({_id : id + ""});
 });

@@ -7,22 +7,45 @@ Interacts with the [Wordpress JSON API plugin](https://wordpress.org/plugins/jso
 Comes with very bare bones templates and sends back all the data/fields to all publications. Includes a basic template with single post view functionality (as well as a way to go back.)
 ###Quickstart
 
-Add
+Subscribe to data that is available via global mongo collection Wordpress
 
-```javascript
-wordpress = new Meteor.Collection("wordpress");
-```
-To a shared file. And then
 ```javascript
 Meteor.subscribe("wordpress","http://yourwpsite.com/");
 ```
-To a clientside file. Finally;
+
+Use global template helper to fetch results of subscription
+
 ```
 {{#each wpPosts}}
   {{{content}}}
 {{/each}}
 ```
-In a template (html) file.
+
+Make your own structures/queries  by directly accessing the Wordpress collection
+
+```
+Wordpress.find();
+
+```
+
+Optionally, use Session variable "wp-json-api-url" to dynamically change subscription data,
+an example can be used with template 'wordpress_posts'
+
+
+**client.js**
+```javascript
+Meteor.startup(function(){
+	Session.setDefault('wp-json-api-url',"http://wordpressJsonUrl");
+});
+```
+
+***template.html***
+```
+<template name="myWordpressPosts">
+	{{>wp_posts}}
+</template>
+```
+Note this is mostly for testing purposes.. the outputted template is very basic.
 
 Publications
 ===============
