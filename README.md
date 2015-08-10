@@ -23,7 +23,9 @@ To a clientside file. Finally;
 {{/each}}
 ```
 In a template (html) file.
-###Publications
+
+Publications
+===============
 ```javascript
 Meteor.publish("wordpress",function(site,directive))
 ```
