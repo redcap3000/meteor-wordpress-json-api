@@ -1,6 +1,6 @@
 Package.describe({
   name: 'redcap3000:wordpress-json-api',
-  version: '0.0.2',
+  version: '0.0.3',
   // Brief, one-line summary of the package.
   summary: "Interacts with the Wordpress JSON API plugin to retrieve wordpress data",
   // URL to the Git repository containing the source code for this package.
