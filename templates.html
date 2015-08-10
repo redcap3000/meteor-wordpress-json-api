@@ -1,0 +1,7 @@
+<template name="wordpress_posts">
+ {{#if Template.subscriptionsReady}}
+	{{#each wpPosts}}
+  		{{{content}}}
+	{{/each}}
+  {{/if}}
+</template>
